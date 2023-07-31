@@ -10,6 +10,27 @@ const createNewUser = (async(req,res) => {
         return res.status(400).json({message: "Please Fill Up All Fields"})
     };
 
-    //Mail Duplication Caheck
-    
+    //duplicate mail check
+    const duplicate = await user.findOne({email});
+    if (duplicate){
+        return res.status(409).json({message:"Exisitng Email ID"})
+    };
+
+    //password hasing
+    const hashedPwd = await bcrypt.hash(password,10);
+
+    const userObject = {firstName,lastName,email,mobile,password:hashedPwd};
+
+    const User = await user.create(userObject);
+
+    if (User) {
+        return res.status(201).json({message:`New User ${firstName +' '+ lastName}  Created` })
+    }
+    else{
+        return res.status(400).json({message:"Failed to Create New User"})
+    }
+
 });
+
+
+module.exports = {createNewUser}

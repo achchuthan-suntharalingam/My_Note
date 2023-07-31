@@ -20,12 +20,7 @@ const userSchema = new mongoose.Schema({
     password:{
         type:String,
         required:true,
-        minlength:8
     },
-    active:{
-        type:Boolean,
-        required:true
-    }
 });
 
 module.exports = mongoose.model('user', userSchema);

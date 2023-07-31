@@ -4,6 +4,11 @@ require('dotenv').config();
 const connectDB = require('./config/dbConfig');
 const PORT = process.env.PORT || 8000
 
+app.use(express.json());
+
+//routing
+app.use('/users', require('./routes/userRoutes'));
+
 connectDB().then(()=>{
     console.log("Coneected to MongoDB");
 })
