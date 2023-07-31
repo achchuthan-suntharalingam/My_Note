@@ -1,7 +1,7 @@
 const user = require('../models/userModel');
 const bcrypt = require('bcrypt');
 
-//creating new user
+//create new user
 const createNewUser = (async(req,res) => {
     const {firstName,lastName,email,mobile,password} = req.body;
 
@@ -32,5 +32,18 @@ const createNewUser = (async(req,res) => {
 
 });
 
+//get user
+const getUser = (async(req,res) => {
+    const id = req.params['id'];
+    const User = await user.findById(id).select('-password');
 
-module.exports = {createNewUser}
+    if (!User) {
+        return res.status(400).json({message:"User Not Found"});        
+    }
+    else {
+        return res.status(201).json(User);     
+    }
+});
+
+
+module.exports = {createNewUser, getUser}
