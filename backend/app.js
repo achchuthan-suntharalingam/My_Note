@@ -8,11 +8,13 @@ app.use(express.json());
 
 //routing
 app.use('/users', require('./routes/userRoutes'));
+app.use('/notes', require('./routes/notesRoutes'));
 
 connectDB().then(()=>{
-    console.log("Coneected to MongoDB");
+    console.log("Connected to MongoDB");
 })
 
 app.listen(PORT,()=>{
     console.log(`Server running on port ${PORT}`)
 })
+

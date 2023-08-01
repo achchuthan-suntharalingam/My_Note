@@ -2,7 +2,7 @@ const user = require('../models/userModel');
 const bcrypt = require('bcrypt');
 
 //create new user
-const createNewUser = (async(req,res) => {
+const newUser = (async(req,res) => {
     const {firstName,lastName,email,mobile,password} = req.body;
 
     //empty fields validating
@@ -69,4 +69,4 @@ const updateUser = (async(req,res) => {
 
 })
 
-module.exports = {createNewUser, getUser, updateUser}
+module.exports = {newUser, getUser, updateUser}

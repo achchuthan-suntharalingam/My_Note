@@ -11,6 +11,21 @@ const noteSchema = new mongoose.Schema({
     },
     createdAt:{
         type:Date,
+        default:Date.now,
+        get: function() {
+            const options = {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false,
+            };
+            return this._createdAt.toLocaleString('en-IN', options);
+        }
+    },
+    editedAt:{
+        type:Date,
         default:Date.now
     }
 });
