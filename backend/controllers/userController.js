@@ -45,5 +45,28 @@ const getUser = (async(req,res) => {
     }
 });
 
+//update user
+const updateUser = (async(req,res) => {
+    const {id,firstName,lastName,mobile} =req.body;
+    
+    //fields check
+    if (!id|| !firstName|| !lastName|| !mobile){
+        return res.status(400).json({message:"All Fields Are Required"});
+    }
 
-module.exports = {createNewUser, getUser}
+    //user existing or not
+    const User = await user.findById(id);
+    if (!User){
+        return res.status(400).json({message:"User Not Found"})
+    }
+
+    User.firstName = firstName;
+    User.lastName = lastName;
+    User.mobile = mobile;
+
+    const updatedUser = await User.save();
+    res.status(201).json({message:`User ${updatedUser.firstName +' '+ updatedUser.lastName} Updated`})
+
+})
+
+module.exports = {createNewUser, getUser, updateUser}
