@@ -55,7 +55,7 @@ const updateNote = (async(req,res) => {
 
 //deleting a note
 const deleteNote = (async(req,res) => {
-    const id = req.body;
+    const {id} = req.body;
 
     if(!id) {
         return res.status(400).json({message:"Id not found"});
