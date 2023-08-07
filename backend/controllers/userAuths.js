@@ -7,7 +7,7 @@ const user = require('../models/userModel');
 const registerUser = asyncHandler(async(req,res) => {
     const {firstName,lastName,mobile,email,password} = req.body;
 
-    if (!firstName || lastName || mobile || email || !password) {
+    if (!firstName || !lastName || !mobile || !email || !password) {
         res.status(400)
         throw new Error('Fill All Fields')
     }
@@ -26,14 +26,14 @@ const registerUser = asyncHandler(async(req,res) => {
     const User = await user.create({firstName,lastName,mobile,email,password:hashedPwsd, token: generateToken(user.id)})
 
     if (User) {
-        res.status(201).json(`User ${firstName} + ' ' + ${lastName} Registered`)
+        res.status(201).json(`User ${firstName +' '+ lastName} Registered`)
     }
     else{res.status(401).json({message:'Invalid Credentials'})}
 });
 
 //json webtoken
 const generateToken = (id) => {
-    return jwt.sign({id}, process.env.JWT_SECRET, {expiresIn: 'never'})
+    return jwt.sign({id}, process.env.JWT_SECRET, {expiresIn: '365d'})
 }
 
 module.exports = {registerUser}
