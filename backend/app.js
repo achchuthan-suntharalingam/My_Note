@@ -9,6 +9,7 @@ app.use(express.json());
 //routing
 app.use('/users', require('./routes/userRoutes'));
 app.use('/notes', require('./routes/notesRoutes'));
+app.use('users/auth', require('./routes/userAuthRoutes'))
 
 connectDB().then(()=>{
     console.log("Connected to MongoDB");
